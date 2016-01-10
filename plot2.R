@@ -1,7 +1,7 @@
 ## this code opens "household_power_consumption.txt" from present working
 ## directory, reads in the data from 1st and 2nd Feb 2007 and plots the
-## Global Active Power over these 2 days.  The graph is displayed
-## to screen and written to file "plot2.png" in pwd.
+## Global Active Power over these 2 days.  The graph is written to file
+## "plot2.png" in pwd.
 
 ## read in data from "household_power_consumption.txt" in pwd
 inFile <- "household_power_consumption.txt"
@@ -18,10 +18,12 @@ rm(powerData)
 powerSubset$datetime <- strptime(paste(powerSubset$Date,powerSubset$Time),
 	"%d/%m/%Y%H:%M:%S")
 
-## display line plot of Global Active Power against time to screen
+## open png file with white background
+png("plot2.png", bg="white")
+
+## write line plot of Global Active Power against time to png file
 with(powerSubset, plot(datetime, Global_active_power, type="l",
 	ylab="Global Active Power (kilowatts)", xlab=""))
 
-## copy graph to file
-dev.copy(png, file="plot2.png")
+## close png file
 dev.off()

@@ -2,8 +2,8 @@
 ## directory, reads in the data from 1st and 2nd Feb 2007 and produces 4
 ## graphs using this data.  The graphs are 1. Histogram of Global Active Power.
 ## 2. Voltage over time.  3. Variation in 3 Sub metering measures over time.
-## 4. Global Reactive Power over time.  The graphs are displayed
-## to screen and written to file "plot4.png" in pwd.
+## 4. Global Reactive Power over time.  The graphs are written to file
+## "plot4.png" in pwd.
 
 ## read in data from "household_power_consumption.txt" in pwd
 inFile <- "household_power_consumption.txt"
@@ -19,6 +19,9 @@ rm(powerData)
 ## the character strings Date and Time
 powerSubset$datetime <- strptime(paste(powerSubset$Date,powerSubset$Time),
 	"%d/%m/%Y%H:%M:%S")
+
+## open png file with white background
+png("plot4.png", bg="white")
 
 ## set display so that the 4 graphs are displayed in a 2x2 array
 par(mfrow=c(2,2))
@@ -41,6 +44,5 @@ legend("topright", col=c("black", "red", "blue"), legend=c("Sub_metering_1",
 ## Graph 4:  Voltage over time
 with(powerSubset, plot(datetime, Global_reactive_power, type="l"))
 
-## copy graph to file
-dev.copy(png, "plot4.png")
+## close png file
 dev.off()
